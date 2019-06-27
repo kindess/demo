@@ -3,11 +3,15 @@ import com.alibaba.fastjson.JSONObject;
 import com.yunze.demo.exception.CustomException;
 import com.yunze.demo.pojo.User;
 import com.yunze.demo.service.UserService;
+import com.yunze.demo.util.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +57,7 @@ public class LoginController {
             session.setAttribute("userInfo",user);
             return "redirect:index";
         } catch (CustomException e) {
-            model.addAttribute("errorMessage",e.getMessage());
+            model.addAttribute("resultCode",new ResultCode<>(e.getMessage()));
             return "login";
         }
     }
@@ -75,5 +79,12 @@ public class LoginController {
         response.addCookie(rememberMeCookie);
         // 3、重定向
         return "redirect:login";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/register",method = RequestMethod.POST)
+    public ResultCode register(User user){
+        ResultCode resultCode = userService.register(user);
+        return resultCode;
     }
 }

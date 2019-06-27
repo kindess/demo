@@ -1,7 +1,11 @@
 package com.yunze.demo.util;
+
+import lombok.Data;
+
 /**
  * 响应结构
  */
+@Data
 public class ResultCode<T> {
 
     // 响应业务状态  状态码 200 成功 , 201 失败

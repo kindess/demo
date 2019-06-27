@@ -64,4 +64,8 @@ public class ErrorMsg {
      * 验证码已过期
      */
     public static final String ERROR_100015 = "验证码已过期";
+    /**
+     * 注册失败
+     */
+    public static final String ERROR_100016 = "注册失败";
 }

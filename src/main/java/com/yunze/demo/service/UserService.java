@@ -13,4 +13,6 @@ public interface UserService {
      * @return
      */
     ResultCode<String> login(User user) throws CustomException;
+
+    ResultCode<String> register(User user) throws CustomException;
 }

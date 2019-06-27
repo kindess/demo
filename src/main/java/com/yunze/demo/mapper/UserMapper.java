@@ -15,6 +15,6 @@ public interface UserMapper {
   User getUserByUsername(String username);
 
   @Insert(" insert into user_tb(id, username, password) values(#{id}, #{username}, #{password})")
-  void insertUser(User user);
+  int insertUser(User user);
 
 }

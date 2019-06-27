@@ -6,8 +6,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 全局异常处理
+ *
+ * @author pengbinbin
+ * @date 2019/6/27
  */
-//@ControllerAdvice
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     /**

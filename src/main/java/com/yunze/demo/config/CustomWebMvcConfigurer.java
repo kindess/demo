@@ -19,7 +19,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
         registry.addInterceptor(loginIntercepter()).addPathPatterns("/*")
                 .excludePathPatterns("/druid/**")
 //                .excludePathPatterns("/login")
-                .excludePathPatterns("/logout")
+                .excludePathPatterns("/logout","/register")
                 .excludePathPatterns("/**/*.css","/**/*.js");
         WebMvcConfigurer.super.addInterceptors(registry);
     }

@@ -5,6 +5,7 @@ import com.yunze.demo.mapper.UserMapper;
 import com.yunze.demo.pojo.User;
 import com.yunze.demo.service.UserService;
 import com.yunze.demo.util.ResultCode;
+import com.yunze.demo.util.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,10 @@ public class UserServiceImpl implements UserService {
     // 运行时能够根据类型正确自动注入
     @Autowired
     private UserMapper userMapper;
+
+    private static final int STATUS_CODE = 200;
+    private static final String MESSAGE = "操作成功";
+    private static final String DATA = "";
 
     /**
      * 根据用户id或者用户名查询用户
@@ -44,9 +49,6 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ResultCode<String> login(User user) throws CustomException {
-        int statusCode = 200;
-        String message = "登录成功";
-        String data = "";
         User result = queryUserByIdOrUsername(user);
         // 1、用户名或者密码错误
         if (result == null
@@ -55,6 +57,24 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(ErrorMsg.ERROR_100004);
         }
         // 2、登录成功
-        return new ResultCode<String>(statusCode,message,data);
+        return new ResultCode<String>(STATUS_CODE,MESSAGE,DATA);
+    }
+
+    /**
+     * 注册
+     * @param user
+     * @return
+     * @throws CustomException
+     */
+    @Override
+    public ResultCode<String> register(User user) throws CustomException {
+        //生成随机id
+        user.setId(UUIDUtils.generateUUID22());
+        try {
+            userMapper.insertUser(user);
+        } catch (Exception e) {
+            throw new CustomException(ErrorMsg.ERROR_100016);
+        }
+        return new ResultCode<String>(STATUS_CODE,MESSAGE,DATA);
     }
 }
